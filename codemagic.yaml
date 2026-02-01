@@ -1,5 +1,5 @@
-# Codemagic – same as terminal: flutter build apk --release
-# Repo = this Flutter app only. Android uses FLUTTER_ROOT when local.properties is missing.
+# Codemagic – same as terminal: flutter build apk/appbundle --release
+# Repo = this Flutter app only. First step writes android/local.properties so Gradle finds Flutter.
 
 workflows:
   android-workflow:
@@ -8,13 +8,20 @@ workflows:
     environment:
       flutter: stable
     scripts:
-      - name: Get packages and build APK
+      - name: Set Flutter path for Gradle
+        script: |
+          cd "$CM_BUILD_DIR"
+          FLUTTER_SDK="${FLUTTER_ROOT:-$(cd "$(dirname "$(which flutter)")/.." && pwd)}"
+          echo "flutter.sdk=$FLUTTER_SDK" > android/local.properties
+      - name: Get packages and build
         script: |
           cd "$CM_BUILD_DIR"
           flutter pub get
           flutter build apk --release
+          flutter build appbundle --release
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
+      - build/app/outputs/bundle/release/*.aab
     publishing:
       scripts:
         - name: Done
