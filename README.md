@@ -43,8 +43,9 @@ In the app **Settings**, set **Base URL** (e.g. `http://192.168.1.x:8000`). Use 
 
 ## AI (Chat mode)
 
-In **Settings**, set **AI API base URL** (e.g. `https://api.openai.com` or Groq) and your **API key**.  
-Get a key from [OpenAI](https://platform.openai.com/) or [Groq](https://console.groq.com/).
+**Free option (Groq):** In **Settings** → AI (Chat) → tap **Use Groq (free)** → get a free API key at [console.groq.com](https://console.groq.com/) → paste the key → **Save**. No billing required.
+
+**OpenAI (paid):** Set **AI API base URL** to `https://api.openai.com` and your OpenAI API key. Use if you have credits/billing set up.
 
 ---
 

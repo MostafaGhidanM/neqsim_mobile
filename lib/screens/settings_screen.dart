@@ -82,16 +82,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
           TextField(
             controller: _aiBaseUrl,
             decoration: const InputDecoration(
-              labelText: 'AI API base URL (e.g. https://api.openai.com)',
+              labelText: 'AI API base URL',
+              hintText: 'https://api.openai.com or Groq free below',
               border: OutlineInputBorder(),
             ),
             keyboardType: TextInputType.url,
+          ),
+          const SizedBox(height: 8),
+          OutlinedButton.icon(
+            onPressed: () {
+              _aiBaseUrl.text = 'https://api.groq.com/openai/v1';
+              setState(() {});
+            },
+            icon: const Icon(Icons.free_breakfast, size: 20),
+            label: const Text('Use Groq (free) – set URL and get key at console.groq.com'),
           ),
           const SizedBox(height: 8),
           TextField(
             controller: _aiApiKey,
             decoration: const InputDecoration(
               labelText: 'API key',
+              hintText: 'OpenAI key or Groq key (free at console.groq.com)',
               border: OutlineInputBorder(),
             ),
             obscureText: true,

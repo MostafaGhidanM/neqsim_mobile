@@ -16,11 +16,17 @@ class AiChatService {
       return 'Please set your API key in Settings (Chat → Settings → AI API key).';
     }
     if (baseUrl.isEmpty) {
-      return 'Please set AI API base URL in Settings (e.g. https://api.openai.com).';
+      return 'Please set AI API base URL in Settings (e.g. https://api.openai.com or Groq free: https://api.groq.com/openai/v1).';
     }
-    final uri = Uri.parse(baseUrl.endsWith('/') ? '${baseUrl}v1/chat/completions' : '$baseUrl/v1/chat/completions');
+    // Groq (free tier): use Groq model; base URL is already .../openai/v1
+    final isGroq = baseUrl.toLowerCase().contains('groq');
+    final modelToUse = isGroq ? 'llama-3.1-8b-instant' : model;
+    final String chatUrl = baseUrl.contains('/v1') || baseUrl.endsWith('/v1')
+        ? (baseUrl.endsWith('/') ? '${baseUrl}chat/completions' : '$baseUrl/chat/completions')
+        : (baseUrl.endsWith('/') ? '${baseUrl}v1/chat/completions' : '$baseUrl/v1/chat/completions');
+    final uri = Uri.parse(chatUrl);
     final body = {
-      'model': model,
+      'model': modelToUse,
       'messages': [
         {'role': 'system', 'content': systemContext},
         {'role': 'user', 'content': userMessage},
