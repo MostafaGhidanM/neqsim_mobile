@@ -23,6 +23,9 @@ No login. Configure backend URL and AI API key in **Settings**.
 - **iOS**: `flutter run` (Mac only).
 - **Web**: `flutter run -d chrome`.
 
+**Build smaller APKs locally:**  
+`flutter build apk --release --split-per-abi` → produces `app-arm64-v8a-release.apk`, `app-armeabi-v7a-release.apk`, `app-x86_64-release.apk` (each smaller than a single universal APK). For one very small APK (e.g. arm64 only): `flutter build apk --release --target-platform android-arm64`.
+
 ---
 
 ## Backend (Engineering mode)
@@ -48,6 +51,8 @@ Get a key from [OpenAI](https://platform.openai.com/) or [Groq](https://console.
 ## Build on Codemagic (Android)
 
 Codemagic runs the same as terminal: `flutter pub get` then `flutter build apk --release`. Terminal uses `android/local.properties`; Codemagic uses `FLUTTER_ROOT` when that file is missing.
+
+**Smaller APKs (split per ABI):** The project builds **one APK per architecture** (arm64-v8a, armeabi-v7a, x86_64) so each file is smaller. Use the APK that matches the device (e.g. `app-arm64-v8a-release.apk` for most modern phones).
 
 1. **Push to Git**  
    Commit and push this folder as your repo (e.g. GitHub, GitLab, Bitbucket).

@@ -53,7 +53,7 @@ class _ChatScreenState extends State<ChatScreen> {
       if (!mounted) return;
       setState(() {
         _loading = false;
-        _messages.add(MapEntry(false, reply ?? 'No response from AI. Check API key and settings.'));
+        _messages.add(MapEntry(false, reply ?? 'No response. Check Settings: AI base URL and API key.'));
       });
     } catch (e) {
       if (!mounted) return;

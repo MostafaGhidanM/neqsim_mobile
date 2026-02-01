@@ -17,7 +17,8 @@ workflows:
         script: |
           cd "$CM_BUILD_DIR"
           flutter pub get
-          flutter build apk --release
+          # Smaller APKs: one per ABI (arm64-v8a, armeabi-v7a, x86_64)
+          flutter build apk --release --split-per-abi
           flutter build appbundle --release
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
