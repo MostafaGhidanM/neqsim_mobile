@@ -47,7 +47,7 @@ Get a key from [OpenAI](https://platform.openai.com/) or [Groq](https://console.
 
 ## Build on Codemagic (Android)
 
-This repo is the Flutter app only. `codemagic.yaml` is at the repo root.
+Codemagic runs the same as terminal: `flutter pub get` then `flutter build apk --release`. Terminal uses `android/local.properties`; Codemagic uses `FLUTTER_ROOT` when that file is missing.
 
 1. **Push to Git**  
    Commit and push this folder as your repo (e.g. GitHub, GitLab, Bitbucket).
@@ -59,13 +59,14 @@ This repo is the Flutter app only. `codemagic.yaml` is at the repo root.
 
 3. **Start a build**  
    - **Workflows** → **Android Build** → **Start new build** (branch: `main` or `master`).  
+   - Use **only** the workflow defined in `codemagic.yaml`. Do **not** add a separate “Build for Android” or “Build Android App Bundle” step in the workflow editor, or Gradle may run without `android/local.properties` and fail.  
    - Wait for the pipeline to finish.
 
 4. **Get the APK/AAB**  
    - Build page → **Artifacts** tab.  
    - Download the **APK** for sideloading or the **AAB** for Play Store.
 
-**Optional:** For Play Store release, add [Android code signing](https://docs.codemagic.io/flutter-code-signing/android-code-signing/) in Codemagic and reference it in `codemagic.yaml` under `environment.android_signing`.
+**Optional:** For Play Store, add [Android code signing](https://docs.codemagic.io/flutter-code-signing/android-code-signing/) in Codemagic and add `flutter build appbundle --release` in `codemagic.yaml`.
 
 ---
 

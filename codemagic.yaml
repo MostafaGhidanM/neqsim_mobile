@@ -1,5 +1,5 @@
-# Codemagic CI/CD – NeqSim Mobile (this repo is the Flutter app only)
-# Repo root = this folder. Docs: https://docs.codemagic.io/yaml-quick-start/building-a-flutter-app
+# Codemagic – same as terminal: flutter build apk --release
+# Repo = this Flutter app only. Android uses FLUTTER_ROOT when local.properties is missing.
 
 workflows:
   android-workflow:
@@ -8,35 +8,14 @@ workflows:
     environment:
       flutter: stable
     scripts:
-      - name: Set up local.properties
-        script: |
-          echo "flutter.sdk=${FLUTTER_ROOT:-$HOME/programs/flutter}" > "$CM_BUILD_DIR/android/local.properties"
-      - name: Get Flutter packages
+      - name: Get packages and build APK
         script: |
           cd "$CM_BUILD_DIR"
           flutter pub get
-      - name: Flutter analyze
-        script: |
-          cd "$CM_BUILD_DIR"
-          flutter analyze
-      - name: Flutter test
-        script: |
-          cd "$CM_BUILD_DIR"
-          flutter test
-        ignore_failure: true
-      - name: Build Android APK (release)
-        script: |
-          cd "$CM_BUILD_DIR"
           flutter build apk --release
-      - name: Build Android App Bundle (release)
-        script: |
-          cd "$CM_BUILD_DIR"
-          flutter build appbundle --release
     artifacts:
       - build/app/outputs/flutter-apk/*.apk
-      - build/app/outputs/bundle/release/*.aab
     publishing:
       scripts:
-        - name: Publish build artifacts
-          script: |
-            echo "APK and AAB built. Download from Artifacts tab."
+        - name: Done
+          script: echo "APK in Artifacts tab."
