@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../services/settings_service.dart';
 
@@ -67,15 +68,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
         padding: const EdgeInsets.all(16),
         children: [
           const Text('Backend (FA API)', style: TextStyle(fontWeight: FontWeight.bold)),
-          const SizedBox(height: 4),
+          if (kIsWeb)
+            const Padding(
+              padding: EdgeInsets.only(bottom: 8),
+              child: Text(
+                'On Chrome/Web use http://localhost:8000 and run the API on this PC (avoids CORS with ngrok).',
+                style: TextStyle(fontSize: 12, color: Colors.grey),
+              ),
+            ),
           TextField(
             controller: _backendUrl,
-            decoration: const InputDecoration(
-              labelText: 'Base URL (e.g. http://192.168.1.x:8000)',
-              border: OutlineInputBorder(),
+            decoration: InputDecoration(
+              labelText: 'Base URL',
+              hintText: kIsWeb ? 'http://localhost:8000' : 'http://192.168.1.x:8000 or ngrok URL',
+              border: const OutlineInputBorder(),
             ),
             keyboardType: TextInputType.url,
           ),
+          if (kIsWeb) ...[
+            const SizedBox(height: 6),
+            OutlinedButton.icon(
+              onPressed: () {
+                _backendUrl.text = 'http://localhost:8000';
+                setState(() {});
+              },
+              icon: const Icon(Icons.computer, size: 20),
+              label: const Text('Use localhost:8000 (run API on this PC)'),
+            ),
+          ],
           const SizedBox(height: 24),
           const Text('AI (Chat)', style: TextStyle(fontWeight: FontWeight.bold)),
           const SizedBox(height: 4),

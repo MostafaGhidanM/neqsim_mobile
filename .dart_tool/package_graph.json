@@ -7,6 +7,7 @@
       "name": "neqsim_mobile",
       "version": "1.0.0+1",
       "dependencies": [
+        "fl_chart",
         "flutter",
         "http",
         "shared_preferences"
@@ -392,6 +393,22 @@
       "dependencies": [
         "meta",
         "path"
+      ]
+    },
+    {
+      "name": "fl_chart",
+      "version": "0.66.2",
+      "dependencies": [
+        "equatable",
+        "flutter"
+      ]
+    },
+    {
+      "name": "equatable",
+      "version": "2.0.8",
+      "dependencies": [
+        "collection",
+        "meta"
       ]
     }
   ],

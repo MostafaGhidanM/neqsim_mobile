@@ -37,7 +37,10 @@ Run the NeqSim Process API (with flow-assurance) on your PC or server, e.g.:
 python -m uvicorn examples.process_api:app --host 0.0.0.0 --port 8000
 ```
 
-In the app **Settings**, set **Base URL** (e.g. `http://192.168.1.x:8000`). Use `http://10.0.2.2:8000` for Android emulator pointing to host PC.
+In the app **Settings**, set **Base URL**:
+- **Flutter web (Chrome):** Use `http://localhost:8000` and run the API on the same PC. (Using an ngrok URL from the browser causes CORS on the preflight request.)
+- **Android emulator:** `http://10.0.2.2:8000`.
+- **Phone/device (same network):** `http://YOUR_PC_IP:8000` or your ngrok URL.
 
 ---
 

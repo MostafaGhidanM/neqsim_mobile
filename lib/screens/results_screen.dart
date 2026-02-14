@@ -52,6 +52,20 @@ class ResultsScreen extends StatelessWidget {
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],
+                    if (response.arrivalPressureBara != null) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        'Arrival pressure: ${response.arrivalPressureBara!.toStringAsFixed(2)} bara',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                    if (response.totalPressureDropBara != null) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        'Total pressure drop: ${response.totalPressureDropBara!.toStringAsFixed(2)} bara',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
                     if (response.evr != null) ...[
                       const SizedBox(height: 8),
                       Text(
@@ -59,10 +73,38 @@ class ResultsScreen extends StatelessWidget {
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],
+                    if (response.liquidVelocityMs != null) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        'Liquid velocity: ${response.liquidVelocityMs!.toStringAsFixed(4)} m/s',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                    if (response.liquidHoldup != null) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        'Liquid holdup: ${response.liquidHoldup!.toStringAsFixed(4)}',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
                     if (response.iterationsUsed != null) ...[
                       const SizedBox(height: 8),
                       Text(
                         'Iterations: ${response.iterationsUsed} / 100',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                    if (response.uTotalWM2K != null) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        'U total: ${response.uTotalWM2K!.toStringAsFixed(2)} W/(m²·K)',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                    if (response.ambientTemperatureC != null) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        'Ambient temperature: ${response.ambientTemperatureC!.toStringAsFixed(1)} °C',
                         style: const TextStyle(fontSize: 16),
                       ),
                     ],

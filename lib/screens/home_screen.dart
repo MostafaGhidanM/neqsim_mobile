@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'define_fluid_screen.dart';
 import 'pipeline_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,7 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flow Assurance'),
+        title: const Text('Process Simulation'),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -24,33 +25,50 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const Text(
-              'Choose mode',
+              'Quick actions',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: () => _navigateToPipeline(context, isEngineering: true),
-              icon: const Icon(Icons.calculate),
-              label: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12),
-                child: Text('Engineering (correlation)'),
-              ),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+            _QuickActionButton(
+              icon: Icons.water_drop,
+              label: 'Define fluid',
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DefineFluidScreen(),
+                ),
               ),
             ),
-            const SizedBox(height: 16),
-            OutlinedButton.icon(
-              onPressed: () => _navigateToPipeline(context, isEngineering: false),
-              icon: const Icon(Icons.chat),
-              label: const Padding(
-                padding: EdgeInsets.symmetric(vertical: 12),
-                child: Text('Chat with AI'),
-              ),
-              style: OutlinedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-              ),
+            const SizedBox(height: 12),
+            _QuickActionButton(
+              icon: Icons.calculate,
+              label: 'Flow assurance',
+              onPressed: () => _navigateToPipeline(context, isEngineering: true),
+            ),
+            const SizedBox(height: 12),
+            _QuickActionButton(
+              icon: Icons.filter_alt,
+              label: 'Separator',
+              onPressed: () => _showComingSoon(context, 'Separator'),
+            ),
+            const SizedBox(height: 12),
+            _QuickActionButton(
+              icon: Icons.precision_manufacturing,
+              label: 'Pump',
+              onPressed: () => _showComingSoon(context, 'Pump'),
+            ),
+            const SizedBox(height: 12),
+            _QuickActionButton(
+              icon: Icons.ac_unit,
+              label: 'Air cooler',
+              onPressed: () => _showComingSoon(context, 'Air cooler'),
+            ),
+            const SizedBox(height: 12),
+            _QuickActionButton(
+              icon: Icons.thermostat,
+              label: 'Heat exchanger',
+              onPressed: () => _showComingSoon(context, 'Heat exchanger'),
             ),
           ],
         ),
@@ -63,6 +81,39 @@ class HomeScreen extends StatelessWidget {
       context,
       MaterialPageRoute(
         builder: (context) => PipelineScreen(isEngineering: isEngineering),
+      ),
+    );
+  }
+
+  void _showComingSoon(BuildContext context, String name) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('$name – Coming soon')),
+    );
+  }
+}
+
+class _QuickActionButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onPressed;
+
+  const _QuickActionButton({
+    required this.icon,
+    required this.label,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton.icon(
+      onPressed: onPressed,
+      icon: Icon(icon),
+      label: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: Text(label),
+      ),
+      style: ElevatedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
       ),
     );
   }

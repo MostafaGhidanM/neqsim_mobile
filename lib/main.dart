@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/define_fluid_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/settings_screen.dart';
 
@@ -12,7 +13,7 @@ class NeqSimApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flow Assurance',
+      title: 'Process Simulation',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
@@ -20,6 +21,7 @@ class NeqSimApp extends StatelessWidget {
       home: const HomeScreen(),
       routes: {
         '/settings': (context) => const SettingsScreen(),
+        '/define-fluid': (context) => const DefineFluidScreen(),
       },
     );
   }

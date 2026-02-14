@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsService {
@@ -5,11 +6,12 @@ class SettingsService {
   static const _keyAiBaseUrl = 'ai_base_url';
   static const _keyAiApiKey = 'ai_api_key';
 
-  /// Default: ngrok tunnel (works for mobile, emulator, Chrome). Change in Settings if you use a different tunnel or localhost.
+  /// Web: default localhost to avoid CORS with ngrok. Mobile: default ngrok.
   static Future<String> getBackendUrl() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_keyBackendUrl) ??
-        'https://interavailable-heaping-marianela.ngrok-free.dev';
+    final saved = prefs.getString(_keyBackendUrl);
+    if (saved != null && saved.isNotEmpty) return saved;
+    return kIsWeb ? 'http://localhost:8000' : 'https://interavailable-heaping-marianela.ngrok-free.dev';
   }
 
   static Future<void> setBackendUrl(String url) async {
